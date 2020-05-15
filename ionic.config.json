@@ -1,5 +1,7 @@
 {
   "name": "SNR",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
