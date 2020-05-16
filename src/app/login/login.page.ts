@@ -36,9 +36,13 @@ password
     if(this.username == 'rizchita.p@gmail.com'){
       console.log('admin')
       this.notif('Anda telah berhasil login sebagai Admin')
+      //routing
+      this.route.navigate(['/admin'])
     }else{
       console.log('Mhs')
       this.notif('Anda telah berhasil login sebagai Mahasiswa')
+      //routing
+      this.route.navigate(['/user'])
     }
     this.clear()
   }catch(e){

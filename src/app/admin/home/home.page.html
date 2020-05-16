@@ -1,9 +1,52 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>home</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title><ion-icon name="home" slots="start"></ion-icon>
+      Home Admin</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<ion-card color="secondary" padding>
+  <ion-card-content>
+  <ion-card-title margin>
+    Selamat Datang {{email}} 
+  </ion-card-title>
+  <ion-card-subtitle>
+    Anda telah login sebagai Admin.
+  </ion-card-subtitle>
+</ion-card-content>
+</ion-card>
 
+<ion-card color="secondary" (click)="gotoKandidat()">
+    <img src="../../../assets/shapes.svg" alt="" style="width:100%">
+  <ion-card-content>
+    <ion-card-title>
+      Daftar Kandidat
+    </ion-card-title>
+    <ion-label>
+      Mendaftarkan calon kandidat baru
+    </ion-label>
+  </ion-card-content>
+</ion-card>
+
+<ion-card color="secondary" (click)="gotoDaftar()">
+    <img src="../../../assets/shapes.svg" alt="" style="width:100%">
+  
+  <ion-card-content>
+    <ion-card-title>
+      Mendaftarkan Akun Pemilih
+    </ion-card-title>
+    <ion-label>
+      Mendaftarkan akun yang akan digunakan sebagai pemilih pada aplikasi ini
+    </ion-label>
+  </ion-card-content>
+</ion-card>
+
+<h2 color="secondary" margin style="margin-left:5%">Akun</h2>
+<ion-card padding>
+  <ion-card-content>
+  <ion-button expand="block" (click)="changePw()">Ganti Password</ion-button>
+  <ion-button expand="block" (click)="logOut()">Log Out</ion-button>
+</ion-card-content>
+</ion-card>
 </ion-content>

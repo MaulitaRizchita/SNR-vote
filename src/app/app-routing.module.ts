@@ -16,13 +16,21 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'home',
+    path: 'admin',
     loadChildren: () => import('./admin/home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'home',
+    path: 'user',
     loadChildren: () => import('./user/home/home.module').then( m => m.HomePageModule)
+  },  {
+    path: 'list-kandidat',
+    loadChildren: () => import('./admin/kandidat/list-kandidat/list-kandidat.module').then( m => m.ListKandidatPageModule)
   },
+  {
+    path: 'add-kandidat',
+    loadChildren: () => import('./admin/kandidat/add-kandidat/add-kandidat.module').then( m => m.AddKandidatPageModule)
+  },
+
 ];
 
 @NgModule({

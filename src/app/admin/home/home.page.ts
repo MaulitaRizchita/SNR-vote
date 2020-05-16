@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  email
+
+  constructor(
+    private str: Storage,
+    private route: Router
+  ) { 
+    this.getEmail()
+  }
 
   ngOnInit() {
   }
 
+  async getEmail(){
+    await this.str.get('email').then(result => {
+      this.email = result
+    })
+  }
+
+  gotoKandidat(){
+    this.route.navigate(['list-kandidat'])
+  }
+
+  gotoDaftar(){
+    this.route.navigate([''])
+  }
+
+  changePw(){
+
+  }
+
+  logOut(){
+
+  }
 }
