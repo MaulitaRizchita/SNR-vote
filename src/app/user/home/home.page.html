@@ -1,9 +1,61 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>home</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title><ion-icon name="home" slots="start"></ion-icon>
+      Home User</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<ion-card color="secondary" padding>
+  <ion-card-content>
+  <ion-card-title margin>
+    Selamat Datang {{nama}} <br>
+    Kelas : {{kelas}} <br>
+    Jurusan : {{jurusan}} <br>
+    Status : {{status}} 
+  </ion-card-title>
+  <ion-card-subtitle>
+    Anda telah login sebagai Pemilih.
+  </ion-card-subtitle>
+</ion-card-content>
+</ion-card>
 
+<ion-card color="secondary" *ngFor="let k of calon">
+    <img src="../../../assets/shapes.svg" alt="" style="width:100%">
+  <ion-card-content>
+    <ion-card-title  (click)="gotoKandidat(k.no)">
+      {{k.no}}. {{k.nama}}
+    </ion-card-title>
+    <ion-label>
+      Visi :
+    </ion-label>
+    {{k.visi}}
+    <br>
+    <ion-label>
+      Misi :
+    </ion-label>
+    {{k.misi}}
+  </ion-card-content>
+</ion-card>
+
+<ion-card color="secondary" (click)="gotoDaftar()">
+    <img src="../../../assets/shapes.svg" alt="" style="width:100%">
+  
+  <ion-card-content>
+    <ion-card-title>
+      Mendaftarkan Akun Pemilih
+    </ion-card-title>
+    <ion-label>
+      Mendaftarkan akun yang akan digunakan sebagai pemilih pada aplikasi ini
+    </ion-label>
+  </ion-card-content>
+</ion-card>
+
+<h2 color="secondary" margin style="margin-left:5%">Akun</h2>
+<ion-card padding>
+  <ion-card-content>
+  <ion-button expand="block" (click)="changePw()">Ganti Password</ion-button>
+  <ion-button expand="block" (click)="logOut()">Log Out</ion-button>
+</ion-card-content>
+</ion-card>
 </ion-content>

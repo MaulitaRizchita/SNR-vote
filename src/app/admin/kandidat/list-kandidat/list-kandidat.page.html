@@ -12,6 +12,31 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+  <ion-card *ngFor="let calon of kandidat">
+    <ion-card-content>
+      <ion-card-title>
+        {{calon.no}}. {{calon.nama}}
+      </ion-card-title>
+      <br>
+      <ion-label>
+        Jumlah Vote : {{calon.jml_vote}}
+      </ion-label>
+      <br>
+      <ion-card-subtitle>
+        Visi :
+      </ion-card-subtitle>
+      <ion-label>
+        {{calon.visi}}
+      </ion-label>
 
+      <br>
+      <ion-card-subtitle>
+        Misi :
+      </ion-card-subtitle>
+      <ion-label>
+        {{calon.misi}}
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

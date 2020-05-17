@@ -38,8 +38,9 @@ export class HomePage implements OnInit {
   changePw(){
 
   }
-
-  logOut(){
-
+  
+  async logOut(){
+    await this.str.clear()
+    this.route.navigate(['/login'])
   }
 }

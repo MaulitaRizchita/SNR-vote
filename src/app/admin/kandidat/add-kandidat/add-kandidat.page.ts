@@ -28,7 +28,7 @@ export class AddKandidatPage implements OnInit {
   }
 
   async register(){
-    await firebase.database().ref(`kandidat/ ${this.data.no} `).push({
+    await firebase.database().ref(`kandidat/ ${this.data.no}/`).set({
       no: this.data.no,
       nama: this.data.nama,
       visi: this.data.visi,
