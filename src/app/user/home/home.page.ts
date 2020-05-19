@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AngularFireDatabase } from '@angular/fire/database';
 import * as firebase from 'firebase';
 import { snapshotToArray } from 'src/environments/environment';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -15,18 +15,20 @@ export class HomePage implements OnInit {
 
   constructor(
     private str: Storage,
-    private route : Router,
+    private route: Router,
     private afDb: AngularFireDatabase,
-    private loading: LoadingController
-    ) { 
-   // this.tampilLoad()
+    private loading: LoadingController,
+    private toast: ToastController,
+    private alertController: AlertController
+  ) {
+    // this.tampilLoad()
     this.getStatus()
     this.getKandidat()
   }
 
-  async tampilLoad(){
+  async tampilLoad() {
     var n = await this.loading.create({
-      duration:1200
+      duration: 1200
     })
     n.present()
   }
@@ -38,7 +40,7 @@ export class HomePage implements OnInit {
   status
   calon
 
-  async getStatus(){
+  async getStatus() {
     await this.str.get('key').then(res => {
       this.key = res
     })
@@ -53,7 +55,71 @@ export class HomePage implements OnInit {
     })
   }
 
-  async getKandidat(){
+  async vote(no) {
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: 'Apakah anda yakin ingin melakukan vote pada No. urut' + no,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Okay',
+          handler: async () => {
+            try {
+
+              var jml
+              var jumlah
+              //get current vote count
+              await firebase.database().ref(`kandidat/${no}`).on('value', async res => {
+                jml = await res.val().jml_vote
+                jumlah = jml + 1
+              })
+
+
+              await this.tampilLoad()
+              //add 1 to current vote count
+              console.log(jumlah)
+
+              //set Jumlah to Database
+              await firebase.database().ref(`kandidat//${no}`).set({
+                jml_vote: jumlah
+              })
+
+              //uabh status menjadi telah vote
+              await firebase.database().ref(`akun/${this.key}`).set({
+                status: 'Telah Vote'
+              })
+
+              //pesan sukses
+              this.notif('Anda telah berhasil melakukan vote pada no. urut ' + no)
+
+            } catch (e) {
+              this.notif(e)
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+
+  }
+
+  async notif(msg) {
+    var n = await this.toast.create({
+      message: msg,
+      duration: 1200
+    })
+    n.present()
+  }
+
+  async getKandidat() {
     await firebase.database().ref(`kandidat/`).on('value', async c => {
       this.calon = await snapshotToArray(c)
       console.log(this.calon)
@@ -66,19 +132,19 @@ export class HomePage implements OnInit {
     this.tampilLoad()
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getStatus()
     this.getKandidat()
     this.tampilLoad()
   }
 
-  async gotoKandidat(n){
-    await this.str.set('no',n)
+  async gotoKandidat(n) {
+    await this.str.set('no', n)
     console.log(n)
-   this.route.navigate(['/detail'])
+    this.route.navigate(['/detail'])
   }
 
-  async logOut(){
+  async logOut() {
     await this.str.clear()
     this.route.navigate(['/login'])
   }

@@ -26,7 +26,7 @@ export class DetailPage implements OnInit {
     console.log(this.no)
   }
 
-  data = {
+  dt :any= {
     nama : null,
     visi : null,
     misi : null,
@@ -34,15 +34,15 @@ export class DetailPage implements OnInit {
   }
   async getData(){
     await this.getNo()
-    await firebase.database().ref(`kandidat/${this.no}`).on('value', async resp => {
-      var data = await snapshotToArray(resp)
+    await firebase.database().ref(`kandidat/1`).on('value', async resp => {
+      this.dt = await snapshotToArray(resp)
       //this.data.nama = val.nama
       //this.data.visi =val.visi
       //this.data.misi = val.misi
       //this.data.jml = val.jml_vote
     })
 
-    console.log(this.data)
+    console.log(this.dt)
   }
 
   ngOnInit() {

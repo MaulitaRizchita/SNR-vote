@@ -11,20 +11,20 @@
 <ion-card>
   <ion-card-header>
     <ion-card-title>
-      {{no}}. {{data.nama}}
+      {{no}}. {{dt.nama}}
     </ion-card-title>
     <ion-card-subtitle>
-      Jumlah Vote : {{data.jml}}
+      Jumlah Vote : {{dt.jml}}
     </ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>
     <h3>Visi :</h3>
     <ion-label>
-      {{data.visi}}
+      {{dt.visi}}
     </ion-label>
     <h3>Misi :</h3>
     <ion-label>
-      {{data.misi}}
+      {{dt.misi}}
     </ion-label>
     <br>
     <ion-button expand="block" (click)="vote()">Vote</ion-button>

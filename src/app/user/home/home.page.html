@@ -26,6 +26,7 @@
     <ion-card-title  (click)="gotoKandidat(k.no)">
       {{k.no}}. {{k.nama}}
     </ion-card-title>
+    <br>
     <ion-label>
       Visi :
     </ion-label>
@@ -35,6 +36,14 @@
       Misi :
     </ion-label>
     {{k.misi}}
+    <br>
+    <ion-card>
+      <ion-card-content>
+        Jumlah Pemilih : {{k.jml_vote}} Orang
+      </ion-card-content>
+    </ion-card>
+    <br>
+    <ion-button expand="block" (click)="vote(k.no)" *ngIf="status == 'Belum Vote'">Vote</ion-button>
   </ion-card-content>
 </ion-card>
 
