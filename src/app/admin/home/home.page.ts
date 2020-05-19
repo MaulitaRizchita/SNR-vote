@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,9 @@ export class HomePage implements OnInit {
 
   constructor(
     private str: Storage,
-    private route: Router
+    private route: Router,
+    private afAuth : AngularFireAuth,
+    private toast: ToastController,
   ) { 
     this.getEmail()
   }
@@ -28,19 +32,31 @@ export class HomePage implements OnInit {
   }
 
   gotoKandidat(){
-    this.route.navigate(['list-kandidat'])
+    this.route.navigate(['/list-kandidat'])
   }
 
   gotoDaftar(){
-    this.route.navigate([''])
+    this.route.navigate(['/regis-akun'])
   }
 
   changePw(){
 
   }
   
+  async pesan(msg){
+    var n = await this.toast.create({
+      message:msg,
+      duration:2000
+    })
+    n.present()
+  }
+
   async logOut(){
+    await this.afAuth.signOut()
     await this.str.clear()
+    this.pesan('Anda telah berhasil log out')
     this.route.navigate(['/login'])
   }
+
+
 }

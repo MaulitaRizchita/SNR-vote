@@ -30,9 +30,13 @@ const routes: Routes = [
   {
     path: 'add-kandidat',
     loadChildren: () => import('./admin/kandidat/add-kandidat/add-kandidat.module').then( m => m.AddKandidatPageModule)
-  },  {
+  },
+  {
     path: 'detail',
     loadChildren: () => import('./user/detail/detail.module').then( m => m.DetailPageModule)
+  },  {
+    path: 'regis-akun',
+    loadChildren: () => import('./admin/regis-akun/regis-akun.module').then( m => m.RegisAkunPageModule)
   },
 
 
