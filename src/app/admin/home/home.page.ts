@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
+import * as firebase from 'firebase'
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ export class HomePage implements OnInit {
     private route: Router,
     private afAuth : AngularFireAuth,
     private toast: ToastController,
+    private alertController: AlertController,
   ) { 
     this.getEmail()
   }
@@ -39,9 +41,22 @@ export class HomePage implements OnInit {
     this.route.navigate(['/regis-akun'])
   }
 
-  changePw(){
-
-  }
+  async changePw(){
+      const alert = await this.alertController.create({
+        message: 'Alamat ganti password telah dikirimkan ke email anda',
+        buttons: [
+          {
+            text: 'Ok',
+            role: 'cancel',
+            handler:async () => {
+               await firebase.auth().sendPasswordResetEmail(this.email)
+            },
+          },
+        ],
+      });
+      await alert.present();
+    }
+  
   
   async pesan(msg){
     var n = await this.toast.create({

@@ -39,8 +39,13 @@ export class HomePage implements OnInit {
   jurusan
   status
   calon
+  email
 
   async getStatus() {
+    this.str.get('email').then(ret => {
+      this.email = ret
+    })
+
     await this.str.get('key').then(res => {
       this.key = res
     })
@@ -83,15 +88,15 @@ export class HomePage implements OnInit {
 
               await this.tampilLoad()
               //add 1 to current vote count
-              console.log(jumlah)
+              console.log("jumlah adalah "+jumlah)
 
               //set Jumlah to Database
-              await firebase.database().ref(`kandidat//${no}`).set({
-                jml_vote: jumlah
+              await firebase.database().ref(`kandidat/${no}`).update({
+                jml_vote : jumlah
               })
 
               //uabh status menjadi telah vote
-              await firebase.database().ref(`akun/${this.key}`).set({
+              await firebase.database().ref(`akun/${this.key}`).update({
                 status: 'Telah Vote'
               })
 
@@ -130,6 +135,22 @@ export class HomePage implements OnInit {
     this.getStatus()
     this.getKandidat()
     this.tampilLoad()
+  }
+
+  async resetPw(){
+    const alert = await this.alertController.create({
+      message: 'Alamat ganti password telah dikirimkan ke email anda',
+      buttons: [
+        {
+          text: 'Ok',
+          role: 'cancel',
+          handler:async () => {
+             await firebase.auth().sendPasswordResetEmail(this.email)
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   ionViewWillEnter() {
