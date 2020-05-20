@@ -137,7 +137,7 @@ export class HomePage implements OnInit {
     this.tampilLoad()
   }
 
-  async resetPw(){
+  async changePw(){
     const alert = await this.alertController.create({
       message: 'Alamat ganti password telah dikirimkan ke email anda',
       buttons: [
