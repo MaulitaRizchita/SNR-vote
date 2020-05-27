@@ -21,7 +21,7 @@
 </ion-card>
 
 <ion-card color="secondary" *ngFor="let k of calon">
-    <img src="../../../assets/shapes.svg" alt="" style="width:100%">
+    <img src="../../../assets/{{k.no}}.PNG" alt="" style="width:100%">
   <ion-card-content>
     <ion-card-title  (click)="gotoKandidat(k.no)">
       {{k.no}}. {{k.nama}}
